@@ -1,5 +1,6 @@
 "use client";
 
+import { interviewer } from "@/constants";
 import { cn } from "@/lib/utils";
 import { vapi } from "@/lib/vapi.sdk";
 import Image from "next/image";
@@ -45,7 +46,7 @@ const Agent = ({
     const onSpeechStart = () => setIsSpeaking(true);
     const onSpeechEnd = () => setIsSpeaking(false);
 
-    const onError = (error: Error) => console.error("Error", error);
+    const onError = (error: Error) => console.log("Error", error);
 
     vapi.on("call-start", onCallStart);
     vapi.on("call-end", onCallEnd);
@@ -67,6 +68,7 @@ const Agent = ({
   const handleGenerateFeedback = async (messages: SavedMessage[]) => {
     console.log("Generate feedback here.");
 
+    // TODO: server action feedback
     const { success, id } = {
       success: true,
       id: "feedback-id",
@@ -93,12 +95,28 @@ const Agent = ({
   const handleCall = async () => {
     setCallStatus(CallStatus.CONNECTING);
 
-    await vapi.start(process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!, {
-      variableValues: {
-        username: userName,
-        userid: userId,
-      },
-    });
+    if (type === "generate") {
+      await vapi.start(process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!, {
+        variableValues: {
+          username: userName,
+          userid: userId,
+        },
+      });
+    } else {
+      let formattedQuestions = "";
+
+      if (questions) {
+        formattedQuestions = questions
+          .map((question) => `- ${question}`)
+          .join("\n");
+      }
+
+      await vapi.start(interviewer, {
+        variableValues: {
+          questions: formattedQuestions,
+        },
+      });
+    }
   };
 
   const handleDisconnect = async () => {
