@@ -5,9 +5,9 @@ export async function getInterviewsByUserId(
 ): Promise<Interview[] | null> {
   const interviews = await db
     .collection("interviews")
+    .where("userId", "==", userId)
     .orderBy("createdAt", "desc")
     .get();
-  //.where("userId", "!=", userId)
 
   return interviews.docs.map((doc) => ({
     id: doc.id,
