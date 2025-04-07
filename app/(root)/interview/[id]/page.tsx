@@ -5,7 +5,7 @@ import { getInterviewById } from "@/lib/actions/general.action";
 import { getRandomInterviewCover } from "@/lib/utils";
 import { redirect } from "next/navigation";
 
-const page = async ({ params }: RouteParams) => {
+const InterviewDetails = async ({ params }: RouteParams) => {
   const { id } = await params;
   const user = await getCurrentUser();
   const interview = await getInterviewById(id);
@@ -39,13 +39,14 @@ const page = async ({ params }: RouteParams) => {
       </div>
 
       <Agent
-        userName={user?.name}
-        type={"interview"}
+        userName={user?.name!}
+        userId={user?.id}
         interviewId={id}
+        type={"interview"}
         questions={interview.questions}
       />
     </>
   );
 };
 
-export default page;
+export default InterviewDetails;
