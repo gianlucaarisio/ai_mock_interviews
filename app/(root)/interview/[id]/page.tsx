@@ -22,7 +22,7 @@ const InterviewDetails = async ({ params }: RouteParams) => {
             <img
               className="rounded-full object-cover size-10"
               src={getRandomInterviewCover()}
-              alt="cover image"
+              alt="cover-image"
               width={40}
               height={40}
             />
