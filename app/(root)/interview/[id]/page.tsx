@@ -2,7 +2,6 @@ import Agent from "@/components/Agent";
 import DisplayTechIcons from "@/components/DisplayTechIcons";
 import { getCurrentUser } from "@/lib/actions/auth.action";
 import { getInterviewById } from "@/lib/actions/general.action";
-import { getRandomInterviewCover } from "@/lib/utils";
 import { redirect } from "next/navigation";
 
 const InterviewDetails = async ({ params }: RouteParams) => {
@@ -21,7 +20,7 @@ const InterviewDetails = async ({ params }: RouteParams) => {
           <div className="flex flex-row gap-4 items-center">
             <img
               className="rounded-full object-cover size-10"
-              src={getRandomInterviewCover()}
+              src={interview.coverImage}
               alt="cover-image"
               width={40}
               height={40}
