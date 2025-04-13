@@ -132,6 +132,8 @@ const Agent = ({
   const isCallInactiveOrFinished =
     callStatus === CallStatus.INACTIVE || callStatus === CallStatus.FINISHED;
 
+  const profileImage = "";
+
   return (
     <>
       <div className="call-view">
@@ -153,8 +155,8 @@ const Agent = ({
           <div className="card-content">
             <Image
               className="rounded-full object-cover size-30"
-              src="/user-avatar.png"
-              alt="usser avatar"
+              src={profileImage || "/user-default.png"}
+              alt="user avatar"
               width={540}
               height={540}
             />

@@ -132,3 +132,7 @@ export async function getFeedbackByInterviewId(
     ...feedbackDoc.data(),
   } as Feedback;
 }
+
+export async function setUserData(userId: string) {}
+
+export async function getUserData(userId: string) {}

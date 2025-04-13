@@ -37,6 +37,13 @@ interface User {
   name: string;
   email: string;
   id: string;
+  surname: string;
+  profileImage: string;
+  phone: string;
+  location: string;
+  role: string;
+  age: string;
+  lastEdit: string;
 }
 
 interface InterviewCardProps {
